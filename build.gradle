@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.3'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'me.shio3ch'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter') {
+        exclude module: 'spring-boot-starter-logging'
+    }
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Discord bot を使うための設定
+    implementation 'net.dv8tion:JDA:4.4.0_350'
+    implementation 'com.jagrosh:jda-utilities:3.0.2'
+    // log4j2 を使うための設定
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.apache.logging.log4j:log4j-api'
+    implementation 'org.apache.logging.log4j:log4j-core'
+    // yaml を使うための設定
+    // nashorn が将来的にJDKから無くなるので、起動時に警告が出る
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+}
+
+test {
+    useJUnitPlatform()
+}
